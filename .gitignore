@@ -1,0 +1,21 @@
+# Environnements Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Variables d'environnement / secrets
+.env
+*.key
+
+# Base vectorielle locale (régénérée à chaque run)
+chroma_db/
+*.sqlite3
+
+# OS / éditeurs
+.DS_Store
+.vscode/
+.idea/
+
+# Logs
+*.log
