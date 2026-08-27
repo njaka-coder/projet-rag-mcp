@@ -43,6 +43,46 @@ def web_search(query: str, max_results: int = 5) -> str:
         formatted.append(f"{i}. {title}\n{body}\nSource : {url}")
     return "\n\n".join(formatted)
 
+@mcp.tool()
+def calculate_paracetamol_dose(poids_kg: float) -> str:
+    """Calcule la dose de paracétamol recommandée selon le poids du patient.
+
+    Basé sur les règles de posologie publiques du Doliprane 500mg (source ANSM) :
+    dose maximale par prise, intervalle minimum entre deux prises, dose maximale
+    par jour. Réservé aux patients à partir de 27 kg (environ 8 ans).
+
+    Args:
+        poids_kg: poids du patient en kilogrammes.
+    """
+    disclaimer = (
+        "\n\n(Information calculée à titre indicatif à partir de la notice. "
+        "Ne remplace pas l'avis d'un médecin ou d'un pharmacien.)"
+    )
+
+    if poids_kg < 27:
+        return (
+            "Ce médicament est réservé à l'adulte et à l'enfant à partir de 27 kg "
+            "(environ 8 ans). Pour un poids inférieur, demandez conseil à votre "
+            "médecin ou pharmacien pour une présentation adaptée." + disclaimer
+        )
+    if poids_kg <= 40:
+        return (
+            "Poids 27-40 kg : dose maximale par prise 500 mg (1 comprimé), "
+            "intervalle minimum 6 heures, dose maximale par jour 2000 mg "
+            "(4 comprimés)." + disclaimer
+        )
+    if poids_kg <= 49:
+        return (
+            "Poids 41-49 kg : dose maximale par prise 500 mg (1 comprimé), "
+            "intervalle minimum 4 heures, dose maximale par jour 3000 mg "
+            "(6 comprimés)." + disclaimer
+        )
+    return (
+        "Poids 50 kg et plus : dose maximale par prise 500 mg à 1000 mg "
+        "(1 à 2 comprimés), intervalle minimum 4 heures, dose maximale par jour "
+        "3000 mg (6 comprimés)." + disclaimer
+    )
+
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
