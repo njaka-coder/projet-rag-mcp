@@ -6,3 +6,6 @@ langchain-huggingface
 sentence-transformers
 chromadb
 pypdf
+mcp<2
+ddgs
+langchain-mcp-adapters
