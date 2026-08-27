@@ -12,7 +12,7 @@ from langchain_core.messages import HumanMessage, AIMessage
 # os.environ["GROQ_API_KEY"] = "ta-cle-ici"
 
 # 1. Charger le document
-pdf_path = "../corpus/381-dolipranesuspnot.pdf"
+pdf_path = "../corpus/381_dolipranesuspnot.pdf"
 loader = PyPDFLoader(pdf_path)
 docs = loader.load()
 
@@ -27,8 +27,8 @@ vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings)
 retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
 
 # 4. Modèles via Groq 
-llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
-llm_fast = ChatGroq(model="llama-3.1-8b-instant", temperature=0)  # reformulation : modèle plus léger, suffisant
+llm = ChatGroq(model="openai/gpt-oss-120b", temperature=0)
+llm_fast = ChatGroq(model="openai/gpt-oss-20b", temperature=0)  # reformulation : modèle plus léger
 
 # 5. Prompt avec historique + consigne de citation des sources
 prompt = ChatPromptTemplate.from_messages([
